@@ -1,8 +1,9 @@
 package myClasses.Bank;
 
 
+import myInterfaces.Accountable;
 
-public class Account<T> {
+public class Account<T> implements Accountable<T> {
 
     private T id;
     private int sum;

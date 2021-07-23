@@ -20,7 +20,7 @@ public class Person extends User {
     @Override
     public String toString() {
         return "Person - " + this.getFullName();
-    }
+   }
 }
 
 /*
