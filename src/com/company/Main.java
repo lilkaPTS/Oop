@@ -68,6 +68,7 @@ public class Main {
         System.out.println(ilya.getFullName());
         sum(ilya);
         System.out.println(ilya.getFullName());
+        System.out.println("123");
     }
     static void sum(Person a) {
         a.setFullName("Вася");
