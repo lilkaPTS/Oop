@@ -47,7 +47,7 @@ public class Main {
         button.click();
         button.click();
         //enum
-        if(LocalDate.now().getDayOfWeek().name()==Day.FRIDAY.name()){
+        if(LocalDate.now().getDayOfWeek().name() == Day.FRIDAY.name()){
             System.out.println("Сегодня пятница!");
             System.out.println("Number of this day of the week - " + (Day.FRIDAY.ordinal()+1));
         }
@@ -55,15 +55,22 @@ public class Main {
         Day.MONDAY.test();
         //Object
         Person ilya = new Person("Гудима Илья Алексеевич", 20, Gender.Male, "lilgud", "4167004");
-        System.out.println(ilya.toString()); // Вывод без переопределения - myClasses.Humans.Person@1f17ae12
+        System.out.println(ilya); // Вывод без переопределения - myClasses.Humans.Person@1f17ae12
         //Generics
         Account<String> acc = new Account<String>("2345", 5000);
         String id = acc.getId();
         System.out.println(id);
 
-        Account<Integer> acc2 = new Account<Integer>(2345, 5000);
+        Account<Integer> acc2 = new Account (2345, 5000);
         Integer acc2Id = acc2.getId();
         System.out.println(acc2Id);
+        //Test ref
+        System.out.println(ilya.getFullName());
+        sum(ilya);
+        System.out.println(ilya.getFullName());
+    }
+    static void sum(Person a) {
+        a.setFullName("Вася");
     }
 }
         /*
