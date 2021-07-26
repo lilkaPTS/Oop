@@ -2,6 +2,8 @@ package com.company;
 
 
 import myClasses.Bank.Account;
+import myClasses.Bank.BankBranch;
+import myClasses.Bank.Manager;
 import myClasses.Controls.Button;
 import myClasses.Handlers.ButtonPrintHandler;
 import myClasses.Handlers.ButtonTvHandler;
@@ -14,11 +16,14 @@ import myEnums.Color;
 import myEnums.Day;
 import myEnums.Gender;
 import myEnums.Task;
+import myInterfaces.Accountable;
+import myInterfaces.BankBranchable;
 import myInterfaces.ButtonClickable;
 import myInterfaces.Printable;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -33,8 +38,8 @@ public class Main {
         Person ilya = new Person("Гудима Илья Алексеевич", 20, Gender.Male, "lilgud", "4167004");
 
         Arrays.stream(Task.values()).toList().forEach(task -> System.out.println(task.ordinal() + ") " + task.name()));
-        System.out.println("Enter a number from 0 to " + (Task.values().length-1) + "\n");
-        if(in.hasNextInt())
+        System.out.println("Enter a number from 0 to " + (Task.values().length - 1) + "\n");
+        if (in.hasNextInt())
             switch (Task.values()[in.nextInt()]) {
                 case HUMANS_INTERACTION -> {
                     Person person = new Person("Кулагина Ксения Андреевна", 21, Gender.Female, "kcendrlal", "4007614");
@@ -94,15 +99,41 @@ public class Main {
                     System.out.println("123");
                 }
                 case GENERICS -> {
-                    Account<String> acc = new Account<String>("2345", 5000);
-                    String id = acc.getId();
-                    System.out.println(id);
-                    Account<Integer> acc2 = new Account<Integer>(2345, 5000);
-                    Integer acc2Id = acc2.getId();
-                    System.out.println(acc2Id);
+                    Account<String> acc1 = new Account<String>("2345", 5000);
+                    Accountable<Integer> acc2 = new Account(2345, 5000);
+                    BankBranch bank1 = new BankBranch(123, new BigDecimal(32112312312332.12312312132131));
+                    BankBranchable<Integer> bank2 = new BankBranch(123, new BigDecimal(32112312312332.12312312132131));
+                    ArrayList<Object> objectArrayList = new ArrayList();
+                    objectArrayList.addAll(Arrays.asList(bank1,bank2,acc1,acc2));
+                    System.out.println("Print through cast:");
+                    for(Object object : objectArrayList) {
+                        if(object instanceof BankBranch){
+                            var bank = (BankBranch) object;
+                            System.out.println(bank.getBankId());
+                        }
+                        if(object instanceof Account){
+                            var account = (Account<?>) object;
+                            System.out.println(account.getId());
+                        }
+                    }
+                    System.out.println("Generalized printing:");
+                    String[] people = {"Tom", "Alice", "Sam", "Kate", "Bob", "Helen"};
+                    Integer[] numbers = {23, 4, 5, 2, 13, 456, 4};
+                    print(people);
+                    print(numbers);
+                    var manager1 = new Manager<Integer, Integer>(1,180,80);
+                    var manager2 = new Manager("2","180" ,80.5);
+                    Arrays.asList(manager1, manager2).forEach(manager -> manager.print());
+
                 }
             }
         in.close();
+    }
+    static <T> void  print(T[] objects){
+        for(T object : objects){
+            System.out.print(object + " ");
+        }
+        System.out.println();
     }
     static void sum(Person a) {
         a.setFullName("Вася");

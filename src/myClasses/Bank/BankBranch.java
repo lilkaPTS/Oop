@@ -5,7 +5,7 @@ import myInterfaces.BankBranchable;
 import java.math.BigDecimal;
 
 public class BankBranch implements BankBranchable<Integer> {
-    private int bankId;
+    private Integer bankId;
     private BigDecimal amount;
 
     public BankBranch(int bankId, BigDecimal amount) {
