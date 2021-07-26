@@ -123,8 +123,7 @@ public class Main {
                     print(numbers);
                     var manager1 = new Manager<Integer, Integer>(1,180,80);
                     var manager2 = new Manager("2","180" ,80.5);
-                    Arrays.asList(manager1, manager2).forEach(manager -> manager.print());
-
+                    Arrays.asList(manager1, manager2).forEach(manager -> manager.print()); //or Manager::print
                 }
             }
         in.close();
