@@ -4,6 +4,7 @@ package com.company;
 import myClasses.Bank.Account;
 import myClasses.Bank.BankBranch;
 import myClasses.Bank.Manager;
+import myClasses.Bank.Transaction;
 import myClasses.Controls.Button;
 import myClasses.Handlers.ButtonPrintHandler;
 import myClasses.Handlers.ButtonTvHandler;
@@ -21,6 +22,7 @@ import myInterfaces.BankBranchable;
 import myInterfaces.ButtonClickable;
 import myInterfaces.Printable;
 
+import java.awt.List;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -37,7 +39,8 @@ public class Main {
         Printable printable = bus;
         Person ilya = new Person("Гудима Илья Алексеевич", 20, Gender.Male, "lilgud", "4167004");
 
-        Arrays.stream(Task.values()).toList().forEach(task -> System.out.println(task.ordinal() + ") " + task.name()));
+        //Arrays.stream(Task.values()).toList().forEach(task -> System.out.println(task.ordinal() + ") " + task.name()));
+        Arrays.asList(Task.values()).forEach(task -> System.out.println(task.ordinal() + ") " + task.name()));
         System.out.println("Enter a number from 0 to " + (Task.values().length - 1) + "\n");
         if (in.hasNextInt())
             switch (Task.values()[in.nextInt()]) {
@@ -100,19 +103,17 @@ public class Main {
                 }
                 case GENERICS -> {
                     Account<String> acc1 = new Account<String>("2345", 5000);
-                    Accountable<Integer> acc2 = new Account(2345, 5000);
-                    BankBranch bank1 = new BankBranch(123, new BigDecimal(32112312312332.12312312132131));
-                    BankBranchable<Integer> bank2 = new BankBranch(123, new BigDecimal(32112312312332.12312312132131));
+                    Accountable<Integer> acc2 = new Account<Integer>(2345, 5000);
+                    BankBranch bank1 = new BankBranch(123, new BigDecimal("32112312312332.12312312132131"));
+                    BankBranchable<Integer> bank2 = new BankBranch(123, new BigDecimal("32112312312332.12312312132131"));
                     ArrayList<Object> objectArrayList = new ArrayList();
                     objectArrayList.addAll(Arrays.asList(bank1,bank2,acc1,acc2));
                     System.out.println("Print through cast:");
                     for(Object object : objectArrayList) {
-                        if(object instanceof BankBranch){
-                            var bank = (BankBranch) object;
+                        if(object instanceof BankBranch bank){
                             System.out.println(bank.getBankId());
                         }
-                        if(object instanceof Account){
-                            var account = (Account<?>) object;
+                        if(object instanceof Account<?> account){
                             System.out.println(account.getId());
                         }
                     }
@@ -121,9 +122,20 @@ public class Main {
                     Integer[] numbers = {23, 4, 5, 2, 13, 456, 4};
                     print(people);
                     print(numbers);
-                    var manager1 = new Manager<Integer, Integer>(1,180,80);
-                    var manager2 = new Manager("2","180" ,80.5);
+                    var manager1 = new Manager<Integer,Integer>(1, 180, 80);
+                    var manager2 = new Manager<>("2","180" ,80.5);
                     Arrays.asList(manager1, manager2).forEach(manager -> manager.print()); //or Manager::print
+                }
+                case GENERALIZATION_CONSTRAINTS -> {
+                    Account<String> acc1 = new Account<String>("1", 5000);
+                    Account<Integer> acc2 = new Account<Integer>(2, 1000);
+                    Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
+                    Transaction<Account> tran1 = new Transaction<Account>(acc1,acc2,2000);
+                    tran1.execute();
+                    Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
+                    Transaction<Account> tran2 = new Transaction<Account>(acc1,acc2,1000);
+                    tran2.execute();
+                    Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
                 }
             }
         in.close();

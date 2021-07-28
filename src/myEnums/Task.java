@@ -10,5 +10,6 @@ public enum Task {
     ENUM,
     OBJECT,
     TEST_REF,
-    GENERICS
+    GENERICS,
+    GENERALIZATION_CONSTRAINTS
 }
