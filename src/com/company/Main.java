@@ -1,10 +1,7 @@
 package com.company;
 
 
-import myClasses.Bank.Account;
-import myClasses.Bank.BankBranch;
-import myClasses.Bank.Manager;
-import myClasses.Bank.Transaction;
+import myClasses.Bank.*;
 import myClasses.Controls.Button;
 import myClasses.Handlers.ButtonPrintHandler;
 import myClasses.Handlers.ButtonTvHandler;
@@ -136,6 +133,18 @@ public class Main {
                     Transaction<Account> tran2 = new Transaction<Account>(acc1,acc2,1000);
                     tran2.execute();
                     Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
+                }
+                case EXTENDS_GENERIC -> {
+                    Account<String> acc1 = new Account<String>("1", 100000);
+                    DepositAccount<Integer, String> depAcc1 = new DepositAccount<>(1,30000, "Гудима Илья Алексеевич");
+                    Arrays.asList(acc1,depAcc1).forEach(acc -> acc.print());
+                    Transaction<Account> tran1 = new Transaction<Account>(acc1,depAcc1,20000);
+                    tran1.execute();
+                    Arrays.asList(acc1,depAcc1).forEach(acc -> acc.print());
+                    Accountable<?> acc2 = new DepositAccount<>(1,200000,"Кулагина Ксения Андреевна");
+                    Account<?> acc3 = (Account<?>) acc2;
+                    System.out.println(acc3.getClass());
+
                 }
             }
         in.close();
