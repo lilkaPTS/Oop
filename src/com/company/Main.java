@@ -6,8 +6,10 @@ import myClasses.Controls.Button;
 import myClasses.Handlers.ButtonPrintHandler;
 import myClasses.Handlers.ButtonTvHandler;
 import myClasses.Humans.Employee;
+import myClasses.Humans.Human;
 import myClasses.Humans.Person;
 import myClasses.Humans.User;
+import myClasses.Items.Book;
 import myClasses.Transport.Bus;
 import myClasses.Transport.Car;
 import myEnums.Color;
@@ -144,7 +146,29 @@ public class Main {
                     Accountable<?> acc2 = new DepositAccount<>(1,200000,"Кулагина Ксения Андреевна");
                     Account<?> acc3 = (Account<?>) acc2;
                     System.out.println(acc3.getClass());
+                }
+                case REFERENCE_TYPE_COPY_OBJECT -> {
+                    try{
+                        Human tom = new Human("Tom", 23);
+                        Human bob = tom.clone();
+                        bob.setName("Bob");
+                        tom.display();
+                    }
+                    catch(CloneNotSupportedException ex) {
 
+                        System.out.println("Clonable not implemented");
+                    }
+                    //Full copy
+                    try{
+                        Book book = new Book("War and Peace", "Leo Tolstoy");
+                        Book book2 = book.clone();
+                        book2.setAuthor("Ivan Turgenev");
+                        System.out.println(book.getAuthor());
+                    }
+                    catch(CloneNotSupportedException ex){
+
+                        System.out.println("Cloneable not implemented");
+                    }
                 }
             }
         in.close();
