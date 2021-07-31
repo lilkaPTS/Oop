@@ -170,6 +170,14 @@ public class Main {
                         System.out.println("Cloneable not implemented");
                     }
                 }
+                case RECORDS -> {
+                    Account<String> acc1 = new Account<>("1", 100000);
+                    Account<Integer> acc2 = new Account<>(2, 200000);
+                    Arrays.asList(acc1,acc2).forEach(Account::print);
+                    Transact<?> transact = new Transact<>(acc1,acc2,2000);
+                    transact.execute();
+                    Arrays.asList(acc1,acc2).forEach(Account::print);
+                }
             }
         in.close();
     }
