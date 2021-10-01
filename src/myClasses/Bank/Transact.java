@@ -8,7 +8,7 @@ public record Transact<T extends Account>(T from, T to, int sum) {
             to.setSum(to.getSum() + sum);
             System.out.println("Account " + from.getId() + " -> " + "Account " + to.getId() + ": " + this.sum);
         }
-        else{
+        else {
             System.out.printf("Operation is invalid");
         }
     }

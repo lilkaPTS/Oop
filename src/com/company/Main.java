@@ -132,7 +132,7 @@ public class Main {
                     Transaction<Account> tran1 = new Transaction<Account>(acc1,acc2,2000);
                     tran1.execute();
                     Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
-                    Transaction<Account> tran2 = new Transaction<Account>(acc1,acc2,1000);
+                    Transact<Account> tran2 = new Transact<>(acc1,acc2,1000);
                     tran2.execute();
                     Arrays.asList(acc1,acc2).forEach(acc -> acc.print());
                 }
